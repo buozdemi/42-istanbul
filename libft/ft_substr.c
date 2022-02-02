@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 16:05:58 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/01/11 12:00:13 by nkahrima         ###   ########.fr       */
+/*   Updated: 2022/01/28 18:57:34 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	sub[i] = '\0';
 	return (sub);
 }
-/*
+
 #include <stdio.h>
 #include <string.h>
 int main(){
-	const char *s = ft_substr("tripouille", 100, 1);
-	printf("%d\n", strcmp(s, ""));
+	const char *s = ft_substr("istanbul", 0, 3);
+	printf("%s", s);
 	return 0;
-}*/
+}
