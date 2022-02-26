@@ -76,7 +76,7 @@ void	check_walls(char **lines, int line_count, int line_length)
 	check_components(lines, line_count, line_length);
 }
 
-void	check_map(char **lines)
+config	check_map(char **lines, config map)
 {
 	int	i;
 	int	line_count;
@@ -94,25 +94,29 @@ void	check_map(char **lines)
 	if (line_length == line_count)
 	{
 		printf("Error\n");
-		return ;
+		return (map);
 	}
 	check_walls(lines, line_count, line_length);
+	map.width = line_length;
+	map.height = line_count;
+	return (map);
 }
 
-void	read_map(void)
+config	read_map(config map)
 {
 	char	**lines;
 	char	*line;
-	char	*map;
 	int		fd;
 
 	fd = open("./maps/map.ber", O_RDONLY);
 	line = get_next_line(fd);
 	while (line)
 	{
-		map = ft_strjoin(map, line);
+		map.map = ft_strjoin(map.map, line);
 		line = get_next_line(fd);
 	}
-	lines = ft_split(map, '\n');
-	check_map(lines);
+	lines = ft_split(map.map, '\n');
+	map.lines = lines;
+	map = check_map(lines, map);
+	return (map);
 }

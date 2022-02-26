@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 17:15:28 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/02/24 19:13:35 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/02/26 17:45:56 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,24 @@
 
 typedef struct	map_config
 {
+	char	**lines;
+	char	*map;
 	void	*mlx;
 	void	*window;
+	int		width;
+	int		height;
 }				config;
+
+typedef struct	imgconfig
+{
+	void	*img;
+}				image;
 
 void	check_components(char **lines, int line_count, int	line_length);
 void	check_walls(char **lines, int line_count, int line_length);
-void	check_map(char **lines);
-void	read_map(void);
+config	check_map(char **lines, config map);
+config	read_map(config map);
+int	print_components(int img_width, int img_height, config map);
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);
