@@ -2,7 +2,7 @@
 #include "so_long.h"
 #include <stdio.h>
 
-void	check_components(char **lines, int line_count, int line_length)
+int	check_components(char **lines, int line_count, int line_length, config *map)
 {
 	char	components[4] = "CEP\0"; 
 	int	i;
@@ -20,7 +20,11 @@ void	check_components(char **lines, int line_count, int line_length)
 			if (lines[i][j] == 'E')
 				components[1] = '1';
 			if (lines[i][j] == 'P')
+			{
 				components[2] = '1';
+				map->player_x = j;
+				map->player_y = i;
+			}
 			j++;
 		}
 		i++;
@@ -30,14 +34,15 @@ void	check_components(char **lines, int line_count, int line_length)
 	{
 		if (components[i] != '1')
 		{
-			printf("Error\n");
-			return ;
+			ft_printf("Error\n");
+			return (0);
 		}
 		i++;
 	}
+	return (1);
 }
 
-void	check_walls(char **lines, int line_count, int line_length)
+int	check_walls(char **lines, int line_count, int line_length, int *is_okay, config *map)
 {
 	int	i;
 	int	j;
@@ -48,8 +53,9 @@ void	check_walls(char **lines, int line_count, int line_length)
 	{
 		if (lines[0][i] != '1')
 		{
-			printf("Error\n");
-			return ;
+			ft_printf("Error\n");
+			*is_okay = 0;
+			return (*is_okay);
 		}
 		i++;
 	}
@@ -58,8 +64,9 @@ void	check_walls(char **lines, int line_count, int line_length)
 	{
 		if (lines[line_count - 1][i] != '1')
 		{
-			printf("Error\n");
-			return ;
+			ft_printf("Error\n");
+			*is_okay = 0;
+			return (*is_okay);
 		}
 		i++;
 	}
@@ -68,15 +75,17 @@ void	check_walls(char **lines, int line_count, int line_length)
 	{
 		if (lines[i][0] != '1' || lines[i][line_length - 1] != '1')
 		{
-			printf("Error\n");
-			return ;
+			ft_printf("Error\n");
+			*is_okay = 0;
+			return (*is_okay);
 		}
 		i++;
 	}
-	check_components(lines, line_count, line_length);
+	*is_okay = check_components(lines, line_count, line_length, map);
+	return (*is_okay);
 }
 
-config	check_map(char **lines, config map)
+void	check_map(char **lines, config *map, int *is_okay)
 {
 	int	i;
 	int	line_count;
@@ -93,16 +102,20 @@ config	check_map(char **lines, config map)
 	line_length = i;
 	if (line_length == line_count)
 	{
-		printf("Error\n");
-		return (map);
+		ft_printf("Error\n");
+		free(map->map);
+		*is_okay = 0;
 	}
-	check_walls(lines, line_count, line_length);
-	map.width = line_length;
-	map.height = line_count;
-	return (map);
+	*is_okay = check_walls(lines, line_count, line_length, is_okay, map);
+	if (!*is_okay)
+	{
+		free(map->map);
+	}
+	map->width = line_length;
+	map->height = line_count;
 }
 
-config	read_map(config map)
+void	read_map(config *map, int *is_okay)
 {
 	char	**lines;
 	char	*line;
@@ -112,11 +125,11 @@ config	read_map(config map)
 	line = get_next_line(fd);
 	while (line)
 	{
-		map.map = ft_strjoin(map.map, line);
+		map->map = ft_strjoin(map->map, line);
 		line = get_next_line(fd);
 	}
-	lines = ft_split(map.map, '\n');
-	map.lines = lines;
-	map = check_map(lines, map);
-	return (map);
+	lines = ft_split(map->map, '\n');
+	map->lines = lines;
+	free(line);
+	check_map(lines, map, is_okay);
 }
