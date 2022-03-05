@@ -17,9 +17,9 @@ int	check_components(char **lines, int line_count, int line_length, config *map)
 		{
 			if (lines[i][j] == 'C')
 				components[0] = '1';
-			if (lines[i][j] == 'E')
+			else if (lines[i][j] == 'E')
 				components[1] = '1';
-			if (lines[i][j] == 'P')
+			else if (lines[i][j] == 'P')
 			{
 				components[2] = '1';
 				map->player_x = j;
@@ -123,6 +123,7 @@ void	read_map(config *map, int *is_okay)
 
 	fd = open("./maps/map.ber", O_RDONLY);
 	line = get_next_line(fd);
+	map->map = ft_strdup("");
 	while (line)
 	{
 		map->map = ft_strjoin(map->map, line);
