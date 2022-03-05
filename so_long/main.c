@@ -20,6 +20,7 @@ int	print_components(int w, int h, config *map)
 
 	x = 0;
 	y = 0;
+	ft_printf("%d\n", map->movecount);
 	while (y < map->height)
 	{
 		x = 0;
@@ -44,20 +45,35 @@ int	print_components(int w, int h, config *map)
 		}
 		y++;
 	}
+	map->movecount++;
 	return (1);
 }
 
 void	move(config *map, int movey, int movex)
 {
 	if (map->lines[map->player_y + movey][map->player_x + movex] == '0' || \
-			map->lines[map->player_y + movey][map->player_x + movex] == 'C')
+			map->lines[map->player_y + movey][map->player_x + movex] == 'C' || \
+			map->lines[map->player_y + movey][map->player_x + movex] == 'E')
 	{
+		if (map->lines[map->player_y + movey][map->player_x + movex] == 'C')
+			map->collectibles--;
+		if (map->lines[map->player_y + movey][map->player_x + movex] == 'E')
+		{
+			if (map->collectibles == 0)
+			{			
+				mlx_destroy_window(map->mlx, map->window);
+				exit(0);
+			}
+			else
+				return ;
+		}
 		map->lines[map->player_y][map->player_x] = '0';
 		mlx_clear_window(map->mlx, map->window);
 		map->lines[map->player_y + movey][map->player_x + movex] = 'P';
 		map->player_y += movey;
 		map->player_x += movex;
 		print_components(64, 64, map);
+		ft_printf("collect: %d\n", map->collectibles);
 	}
 }
 
@@ -72,20 +88,25 @@ int	movement(int keycode, config *map)
 	if (keycode == 2)
 		move(map, 0, +1);
 	else if (keycode == 53)
+	{
 		mlx_destroy_window(map->mlx, map->window);
+		exit(0);
+	}
 	return (0);
 }
 
 int main(){
 	
 	config	*map;
-	map = malloc(sizeof(config));
 	int		is_okay;
 	int		w;
 	int		h;
 
 	w = 64;
 	h = 64;
+	map = malloc(sizeof(config));
+	map->movecount = 0;
+	map->collectibles = 0;
 	read_map(map, &is_okay);
 	map->mlx = mlx_init();
 	map->window = mlx_new_window(map->mlx, map->width * w, map->height * h, "Escaping Hell");

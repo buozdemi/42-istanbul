@@ -16,7 +16,10 @@ int	check_components(char **lines, int line_count, int line_length, config *map)
 		while (j < line_length)
 		{
 			if (lines[i][j] == 'C')
+			{
 				components[0] = '1';
+				map->collectibles++;
+			}
 			else if (lines[i][j] == 'E')
 				components[1] = '1';
 			else if (lines[i][j] == 'P')

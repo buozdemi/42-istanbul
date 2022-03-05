@@ -6,7 +6,7 @@
 /*   By: macar <macar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 17:15:28 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/03 20:00:23 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/05 13:43:10 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct	map_config
 	int		height;
 	int		player_x;
 	int		player_y;
+	int		movecount;
+	int		collectibles;
 	image	*img;
 }				config;
 
