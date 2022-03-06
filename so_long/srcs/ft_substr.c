@@ -6,11 +6,11 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 16:05:58 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/02/24 12:43:51 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/05 15:36:05 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../so_long.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {

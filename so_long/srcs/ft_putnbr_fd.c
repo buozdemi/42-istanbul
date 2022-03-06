@@ -6,11 +6,11 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 11:52:48 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/02/28 15:03:36 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/05 15:35:34 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../so_long.h"
 
 void	ft_putnbr_fd(int n, int fd, int *count)
 {

@@ -6,11 +6,11 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 11:50:28 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/02/28 15:07:48 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/05 15:35:20 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../so_long.h"
 
 static int	replace(char c, va_list argumentptr)
 {

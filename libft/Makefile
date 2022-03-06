@@ -59,7 +59,7 @@ $(NAME): $(OBJS)
 	ar $(ARFLAGS) $(NAME).a $(OBJS)
 
 %.o: %.c $(INC)
-	$(CC) -c $< -o $@ $(CFLAGS)
+	$(CC) $(CFLAGS) $(SRCS) $< -o $@ $(CFLAGS)
 
 clean:
 	$(RM) $(OBJS) $(OBJS_BONUS)

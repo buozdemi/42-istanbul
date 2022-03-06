@@ -2,93 +2,104 @@
 #include "so_long.h"
 #include <stdio.h>
 
-int	check_components(char **lines, int line_count, int line_length, config *map)
+void	freemem(config *map)
 {
-	char	components[4] = "CEP\0"; 
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while(i < line_count)
+	while (map->lines[i])
+		free(map->lines[i++]);
+	free(map->lines);
+	free(map);
+}
+
+void	check_components(config *map)
+{
+	char	components[4] = "CEP\0"; 
+	int	y;
+	int	x;
+
+	y = 0;
+	x = 0;
+	while(y < map->height)
 	{
-		j = 0;
-		while (j < line_length)
+		x = 0;
+		while (x < map->width)
 		{
-			if (lines[i][j] == 'C')
+			if (map->lines[y][x] == 'C')
 			{
 				components[0] = '1';
 				map->collectibles++;
 			}
-			else if (lines[i][j] == 'E')
+			else if (map->lines[y][x] == 'E')
 				components[1] = '1';
-			else if (lines[i][j] == 'P')
+			else if (map->lines[y][x] == 'P')
 			{
 				components[2] = '1';
-				map->player_x = j;
-				map->player_y = i;
+				map->player_x = x;
+				map->player_y = y;
 			}
-			j++;
+			x++;
 		}
-		i++;
+		y++;
 	}
-	i = 0;
-	while (components[i])
+	y = 0;
+	while (components[y])
 	{
-		if (components[i] != '1')
+		if (components[y] != '1')
 		{
 			ft_printf("Error\n");
-			return (0);
+			freemem(map);
+			exit(0);
 		}
-		i++;
+		y++;
 	}
-	return (1);
 }
 
-int	check_walls(char **lines, int line_count, int line_length, int *is_okay, config *map)
+void	check_walls(config *map)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (i < line_length)
+	while (i < map->width)
 	{
-		if (lines[0][i] != '1')
+		if (map->lines[0][i] != '1')
 		{
 			ft_printf("Error\n");
-			*is_okay = 0;
-			return (*is_okay);
+		//	freemem(map);
+			//check_leaks();
+			exit(0);
 		}
 		i++;
 	}
 	i = 0;
-	while (i < line_length)
+	while (i < map->width)
 	{
-		if (lines[line_count - 1][i] != '1')
+		if (map->lines[map->height - 1][i] != '1')
 		{
 			ft_printf("Error\n");
-			*is_okay = 0;
-			return (*is_okay);
+			freemem(map);
+			exit(0);
 		}
 		i++;
 	}
 	i = 1;
-	while (i < line_count - 1)
+	while (i < map->height - 1)
 	{
-		if (lines[i][0] != '1' || lines[i][line_length - 1] != '1')
+		if (map->lines[i][0] != '1' || map->lines[i][map->width - 1] != '1')
 		{
 			ft_printf("Error\n");
-			*is_okay = 0;
-			return (*is_okay);
+			freemem(map);
+			exit(0);
 		}
 		i++;
 	}
-	*is_okay = check_components(lines, line_count, line_length, map);
-	return (*is_okay);
+	check_components(map);
 }
 
-void	check_map(char **lines, config *map, int *is_okay)
+void	check_map(config *map)
 {
 	int	i;
 	int	line_count;
@@ -96,44 +107,52 @@ void	check_map(char **lines, config *map, int *is_okay)
 
 	line_count = 0;
 	i = 0;
-	while (lines[i])
+	while (map->lines[i])
 		i++;
 	line_count = i;
 	i = 0;
-	while (lines[0][i] != '\n' && lines[0][i] != '\0')
+	while (map->lines[0][i] != '\n' && map->lines[0][i] != '\0')
 		i++;
 	line_length = i;
 	if (line_length == line_count)
 	{
 		ft_printf("Error\n");
-		free(map->map);
-		*is_okay = 0;
-	}
-	*is_okay = check_walls(lines, line_count, line_length, is_okay, map);
-	if (!*is_okay)
-	{
-		free(map->map);
+		freemem(map);
+		exit(0);
 	}
 	map->width = line_length;
 	map->height = line_count;
+	check_walls(map);
 }
 
-void	read_map(config *map, int *is_okay)
+void	read_map(config *map)
 {
-	char	**lines;
+	char	*result;
 	char	*line;
 	int		fd;
 
 	fd = open("./maps/map.ber", O_RDONLY);
-	line = get_next_line(fd);
-	map->map = ft_strdup("");
+	result = ft_strdup("");
+	
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		result = ft_strjoin(result, line);
+		free(line);
+	}
+/*	
 	while (line)
 	{
-		map->map = ft_strjoin(map->map, line);
+		ft_printf("%s\n", result);
+		result = ft_strjoin(result, line);
+		free(line);
 		line = get_next_line(fd);
 	}
-	lines = ft_split(map->map, '\n');
-	map->lines = lines;
-	free(line);
-	check_map(lines, map, is_okay);
+	*/
+	map->lines = ft_split(result, '\n');
+	free(result);
+	//free(line);
+	check_map(map);
 }

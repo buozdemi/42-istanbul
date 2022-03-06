@@ -7,20 +7,21 @@ void imgs(config *imgs)
 	imgs->img = malloc(sizeof(image));
 	int w;
 	int h;
-	imgs->img->wall= mlx_xpm_file_to_image(imgs->mlx, "./img/wall.xpm", &w, &h);
-	imgs->img->player= mlx_xpm_file_to_image(imgs->mlx, "./img/skull.xpm", &w, &h);
-	imgs->img->collectible = mlx_xpm_file_to_image(imgs->mlx, "./img/heart.xpm", &w, &h);
-	imgs->img->exit = mlx_xpm_file_to_image(imgs->mlx, "./img/exit.xpm", &w, &h);
+	imgs->img->wall= mlx_xpm_file_to_image(imgs->mlx, "/Users/nkahrima/so_long/img/wall.xpm", &w, &h);
+	imgs->img->player= mlx_xpm_file_to_image(imgs->mlx, "/Users/nkahrima/so_long/img/skull.xpm", &w, &h);
+	imgs->img->collectible = mlx_xpm_file_to_image(imgs->mlx, "/Users/nkahrima/so_long/img/heart.xpm", &w, &h);
+	imgs->img->exit = mlx_xpm_file_to_image(imgs->mlx, "/Users/nkahrima/so_long/img/exit.xpm", &w, &h);
 }
 
-int	print_components(int w, int h, config *map)
+void	print_components(int w, int h, config *map)
 {
 	int		x;
 	int		y;
 
 	x = 0;
 	y = 0;
-	ft_printf("%d\n", map->movecount);
+	if (map->movecount > 0)
+		ft_printf("%d\n", map->movecount);
 	while (y < map->height)
 	{
 		x = 0;
@@ -38,15 +39,15 @@ int	print_components(int w, int h, config *map)
 				;
 			else
 			{
-				ft_printf("Error\n"); 
-				return (0);
+				ft_printf("Error\n");
+				freemem(map);
+				exit(0);
 			}
 			x++;
 		}
 		y++;
 	}
 	map->movecount++;
-	return (1);
 }
 
 void	move(config *map, int movey, int movex)
@@ -62,6 +63,7 @@ void	move(config *map, int movey, int movex)
 			if (map->collectibles == 0)
 			{			
 				mlx_destroy_window(map->mlx, map->window);
+				freemem(map);
 				exit(0);
 			}
 			else
@@ -73,7 +75,6 @@ void	move(config *map, int movey, int movex)
 		map->player_y += movey;
 		map->player_x += movex;
 		print_components(64, 64, map);
-		ft_printf("collect: %d\n", map->collectibles);
 	}
 }
 
@@ -90,15 +91,18 @@ int	movement(int keycode, config *map)
 	else if (keycode == 53)
 	{
 		mlx_destroy_window(map->mlx, map->window);
+		freemem(map);
 		exit(0);
 	}
 	return (0);
 }
-
+int	xbutton(config *map){
+	freemem(map);
+	exit(0);
+}
 int main(){
 	
 	config	*map;
-	int		is_okay;
 	int		w;
 	int		h;
 
@@ -107,15 +111,15 @@ int main(){
 	map = malloc(sizeof(config));
 	map->movecount = 0;
 	map->collectibles = 0;
-	read_map(map, &is_okay);
+	read_map(map);
+
 	map->mlx = mlx_init();
 	map->window = mlx_new_window(map->mlx, map->width * w, map->height * h, "Escaping Hell");
-	
 	imgs(map);
-	is_okay = print_components(w, h, map);
-	if (!is_okay)
-		return 0;
+	print_components(w, h, map);
 	mlx_hook(map->window, 2, 1L<<0, &movement, map);
+	mlx_hook(map->window, 17, 0, &xbutton, map);
 	mlx_loop(map->mlx);
 	return 0;
+	
 }

@@ -6,11 +6,11 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 12:53:25 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/02/19 17:19:39 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/06 11:50:31 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../so_long.h"
 
 int	ft_strlen(char *s)
 {
@@ -49,10 +49,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	i = 0;
 	j = 0;
 	if (!s1)
-	{
-		s1 = malloc(sizeof(char));
-		s1[0] = '\0';
-	}
+		s1 = ft_strdup("");
 	if (!s1 || !s2)
 		return (NULL);
 	result = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));

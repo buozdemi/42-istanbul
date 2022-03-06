@@ -1,0 +1,34 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: gcc etkin dosyayı derle",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-g",
+                "${workspaceFolder}/*.c",
+                "${workspaceFolder}/srcs/*.c",
+                "-L${workspaceFolder}/mlx",
+                "-lmlx",
+                "-framework",
+                "AppKit",
+                "-framework",
+                "OpenGL",
+                "-o",
+                "${workspaceFolder}/a.out"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Hata Ayıklayıcısı tarafından oluşturulan görev."
+        }
+    ],
+    "version": "2.0.0"
+}
