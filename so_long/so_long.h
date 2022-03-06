@@ -6,7 +6,7 @@
 /*   By: macar <macar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 17:15:28 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/06 17:18:53 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/06 19:51:49 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,18 @@
 # include <stdarg.h>
 # include "./mlx/mlx.h"
 
-typedef struct 	img
+typedef struct s_img
 {
 	void	*wall;
 	void	*collectible;
 	void	*player;
 	void	*exit;
-	
-}				image;
+}				t_image;
 
-typedef struct	map_config
+typedef struct s_map
 {
 	char	**lines;
 	char	*map;
-	char	components[4];
 	void	*mlx;
 	void	*window;
 	int		width;
@@ -41,19 +39,21 @@ typedef struct	map_config
 	int		player_y;
 	int		movecount;
 	int		collectibles;
-	image	*img;
-}				config;
+	int		exits;
+	int		players;
+	t_image	*img;
+}				t_map;
 
 void	extension(char *str);
-void	freemem(config *map);
-void	imgs(config *imgs);
-void	detect_components(config *map);
-void	check_components(config *map);
-void	check_topbottom(config *map, int j);
-void	check_walls(config *map);
-void	check_map(config *map);
-void	read_map(config *map, char *berfile);
-void	print_components(config *map);
+void	exit_game(t_map *map, int img_loaded);
+void	imgs(t_map *imgs);
+void	detect_components(t_map *map);
+void	check_components(t_map *map);
+void	check_topbottom(t_map *map, int j);
+void	check_walls(t_map *map);
+void	check_map(t_map *map);
+void	read_map(t_map *map, char *berfile);
+void	print_components(t_map *map, int x, int y);
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);

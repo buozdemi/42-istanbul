@@ -6,25 +6,25 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:06:29 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/06 17:19:50 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/06 19:52:19 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	imgs(config *imgs)
+void	imgs(t_map *imgs)
 {
 	int	w;
 	int	h;
 
-	imgs->img = malloc(sizeof(image));
+	imgs->img = malloc(sizeof(t_image));
 	imgs->img->wall = mlx_xpm_file_to_image(imgs->mlx, WALL, &w, &h);
 	imgs->img->player = mlx_xpm_file_to_image(imgs->mlx, PLAYER, &w, &h);
 	imgs->img->collectible = mlx_xpm_file_to_image(imgs->mlx, COLLECT, &w, &h);
 	imgs->img->exit = mlx_xpm_file_to_image(imgs->mlx, EXIT, &w, &h);
 }
 
-void	move(config *map, int movey, int movex)
+void	move(t_map *map, int movey, int movex)
 {
 	if (map->lines[map->player_y + movey][map->player_x + movex] == '0' || \
 			map->lines[map->player_y + movey][map->player_x + movex] == 'C' || \
@@ -37,8 +37,7 @@ void	move(config *map, int movey, int movex)
 			if (map->collectibles == 0)
 			{			
 				mlx_destroy_window(map->mlx, map->window);
-				freemem(map);
-				exit(0);
+				exit_game(map, 1);
 			}
 			else
 				return ;
@@ -48,11 +47,11 @@ void	move(config *map, int movey, int movex)
 		map->lines[map->player_y + movey][map->player_x + movex] = 'P';
 		map->player_y += movey;
 		map->player_x += movex;
-		print_components(map);
+		print_components(map, 0, 0);
 	}
 }
 
-int	movement(int keycode, config *map)
+int	movement(int keycode, t_map *map)
 {
 	if (keycode == 13)
 		move(map, -1, 0);
@@ -65,40 +64,37 @@ int	movement(int keycode, config *map)
 	else if (keycode == 53)
 	{
 		mlx_destroy_window(map->mlx, map->window);
-		freemem(map);
-		exit (0);
+		exit_game(map, 1);
 	}
 	return (0);
 }
 
-int	xbutton(config *map)
+int	xbutton(t_map *map)
 {
-	freemem(map);
-	exit(0);
+	exit_game(map, 1);
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	config	*map;
+	t_map	*map;
 
 	if (argc != 2)
 	{
 		ft_printf("Error\n");
 		exit(0);
 	}
-	map = malloc(sizeof(config));
-	map->components[0] = 'C';
-	map->components[1] = 'E';
-	map->components[2] = 'P';
-	map->components[3] = '\0';
+	map = malloc(sizeof(t_map));
 	map->movecount = 0;
 	map->collectibles = 0;
+	map->exits = 0;
+	map->players = 0;
 	read_map(map, argv[1]);
 	map->mlx = mlx_init();
 	map->window = mlx_new_window(map->mlx, \
 			map->width * 64, map->height * 64, "Escaping Hell");
 	imgs(map);
-	print_components(map);
+	print_components(map, 0, 0);
 	mlx_hook(map->window, 2, 1L << 0, &movement, map);
 	mlx_hook(map->window, 17, 0, &xbutton, map);
 	mlx_loop(map->mlx);

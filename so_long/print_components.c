@@ -6,19 +6,20 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:48:23 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/06 14:55:59 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/06 19:52:37 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	print_components(config *map)
+void	put_image(t_map *map, void *item, int x, int y)
 {
-	int	x;
-	int	y;
+	mlx_put_image_to_window(map->mlx, \
+			map->window, item, x * 64, y * 64);
+}
 
-	x = 0;
-	y = 0;
+void	print_components(t_map *map, int x, int y)
+{
 	if (map->movecount > 0)
 		ft_printf("%d\n", map->movecount);
 	while (y < map->height)
@@ -27,25 +28,17 @@ void	print_components(config *map)
 		while (x < map->width)
 		{
 			if (map->lines[y][x] == '1')
-				mlx_put_image_to_window\
-					(map->mlx, map->window, map->img->wall, x * 64, y * 64);
+				put_image(map, map->img->wall, x, y);
 			else if (map->lines[y][x] == 'P')
-				mlx_put_image_to_window\
-					(map->mlx, map->window, map->img->player, x * 64, y * 64);
+				put_image(map, map->img->player, x, y);
 			else if (map->lines[y][x] == 'C')
-				mlx_put_image_to_window\
-					(map->mlx, map->window, map->img->collectible, x * 64, y * 64);
+				put_image(map, map->img->collectible, x, y);
 			else if (map->lines[y][x] == 'E')
-				mlx_put_image_to_window\
-					(map->mlx, map->window, map->img->exit, x * 64, y * 64);
+				put_image(map, map->img->exit, x, y);
 			else if (map->lines[y][x] == '0')
 				;
 			else
-			{
-				ft_printf("Error\n");
-				freemem(map);
-				exit(0);
-			}
+				exit_game(map, 1);
 			x++;
 		}
 		y++;
