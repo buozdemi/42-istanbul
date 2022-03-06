@@ -6,7 +6,7 @@
 /*   By: macar <macar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 17:15:28 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/06 11:06:36 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/06 15:03:31 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdarg.h>
+# include "./mlx/mlx.h"
 
 typedef struct 	img
 {
@@ -31,6 +32,7 @@ typedef struct	map_config
 {
 	char	**lines;
 	char	*map;
+	char	components[4];
 	void	*mlx;
 	void	*window;
 	int		width;
@@ -42,14 +44,15 @@ typedef struct	map_config
 	image	*img;
 }				config;
 
-void	check_leaks();
 void	freemem(config *map);
 void	imgs(config *imgs);
+void	detect_components(config *map);
 void	check_components(config *map);
+void	check_topbottom(config *map, int j);
 void	check_walls(config *map);
 void	check_map(config *map);
 void	read_map(config *map);
-void	print_components(int img_width, int img_height, config *map);
+void	print_components(config *map);
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);
@@ -66,5 +69,10 @@ int		ft_printf(const char *str, ...);
 int		ft_putchar_fd(char c, int fd);
 int		ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd, int *count);
+
+# define PLAYER "./img/skull.xpm"
+# define COLLECTIBLE "./img/heart.xpm"
+# define EXIT "./img/exit.xpm"
+# define WALL "./img/wall.xpm"
 
 #endif

@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/06 14:06:38 by nkahrima          #+#    #+#             */
+/*   Updated: 2022/03/06 14:44:47 by nkahrima         ###   ########.tr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./mlx/mlx.h"
 #include "so_long.h"
-#include <stdio.h>
 
 void	freemem(config *map)
 {
@@ -15,27 +26,42 @@ void	freemem(config *map)
 
 void	check_components(config *map)
 {
-	char	components[4] = "CEP\0"; 
-	int	y;
-	int	x;
+	int	i;
+
+	i = 0;
+	while (map->components[i])
+	{
+		if (map->components[i] != '1')
+		{
+			ft_printf("Error\n");
+			freemem(map);
+			exit(0);
+		}
+		i++;
+	}
+}
+
+void	detect_components(config *map)
+{
+	int		y;
+	int		x;
 
 	y = 0;
-	x = 0;
-	while(y < map->height)
+	while (y < map->height)
 	{
 		x = 0;
 		while (x < map->width)
 		{
 			if (map->lines[y][x] == 'C')
 			{
-				components[0] = '1';
+				map->components[0] = '1';
 				map->collectibles++;
 			}
 			else if (map->lines[y][x] == 'E')
-				components[1] = '1';
+				map->components[1] = '1';
 			else if (map->lines[y][x] == 'P')
 			{
-				components[2] = '1';
+				map->components[2] = '1';
 				map->player_x = x;
 				map->player_y = y;
 			}
@@ -43,48 +69,33 @@ void	check_components(config *map)
 		}
 		y++;
 	}
-	y = 0;
-	while (components[y])
+	check_components(map);
+}
+
+void	check_topbottom(config *map, int j)
+{
+	int	i;
+
+	i = 0;
+	while (i < map->width)
 	{
-		if (components[y] != '1')
+		if (map->lines[j][i] != '1')
 		{
 			ft_printf("Error\n");
 			freemem(map);
 			exit(0);
 		}
-		y++;
+		i++;
 	}
 }
 
 void	check_walls(config *map)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (i < map->width)
-	{
-		if (map->lines[0][i] != '1')
-		{
-			ft_printf("Error\n");
-		//	freemem(map);
-			//check_leaks();
-			exit(0);
-		}
-		i++;
-	}
-	i = 0;
-	while (i < map->width)
-	{
-		if (map->lines[map->height - 1][i] != '1')
-		{
-			ft_printf("Error\n");
-			freemem(map);
-			exit(0);
-		}
-		i++;
-	}
+	check_topbottom(map, 0);
+	check_topbottom(map, (map->height - 1));
 	i = 1;
 	while (i < map->height - 1)
 	{
@@ -96,7 +107,7 @@ void	check_walls(config *map)
 		}
 		i++;
 	}
-	check_components(map);
+	detect_components(map);
 }
 
 void	check_map(config *map)
@@ -133,7 +144,6 @@ void	read_map(config *map)
 
 	fd = open("./maps/map.ber", O_RDONLY);
 	result = ft_strdup("");
-	
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -142,17 +152,7 @@ void	read_map(config *map)
 		result = ft_strjoin(result, line);
 		free(line);
 	}
-/*	
-	while (line)
-	{
-		ft_printf("%s\n", result);
-		result = ft_strjoin(result, line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	*/
 	map->lines = ft_split(result, '\n');
 	free(result);
-	//free(line);
 	check_map(map);
 }
