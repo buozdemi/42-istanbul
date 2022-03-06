@@ -6,7 +6,7 @@
 /*   By: macar <macar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 17:15:28 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/06 17:10:59 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/06 17:18:53 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd, int *count);
 
 # define PLAYER "./img/skull.xpm"
-# define COLLECTIBLE "./img/heart.xpm"
+# define COLLECT "./img/heart.xpm"
 # define EXIT "./img/exit.xpm"
 # define WALL "./img/wall.xpm"
 

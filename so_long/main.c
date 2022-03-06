@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:06:29 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/06 17:08:54 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/06 17:19:50 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,10 @@ void	imgs(config *imgs)
 	int	h;
 
 	imgs->img = malloc(sizeof(image));
-	imgs->img->wall = mlx_xpm_file_to_image \
-					  (imgs->mlx, WALL, &w, &h);
-	imgs->img->player = mlx_xpm_file_to_image\
-						(imgs->mlx, PLAYER, &w, &h);
-	imgs->img->collectible = mlx_xpm_file_to_image\
-							 (imgs->mlx, COLLECTIBLE, &w, &h);
-	imgs->img->exit = mlx_xpm_file_to_image\
-					  (imgs->mlx, EXIT, &w, &h);
+	imgs->img->wall = mlx_xpm_file_to_image(imgs->mlx, WALL, &w, &h);
+	imgs->img->player = mlx_xpm_file_to_image(imgs->mlx, PLAYER, &w, &h);
+	imgs->img->collectible = mlx_xpm_file_to_image(imgs->mlx, COLLECT, &w, &h);
+	imgs->img->exit = mlx_xpm_file_to_image(imgs->mlx, EXIT, &w, &h);
 }
 
 void	move(config *map, int movey, int movex)
@@ -75,12 +71,13 @@ int	movement(int keycode, config *map)
 	return (0);
 }
 
-int	xbutton(config *map){
+int	xbutton(config *map)
+{
 	freemem(map);
 	exit(0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	config	*map;
 
@@ -98,11 +95,11 @@ int main(int argc, char **argv)
 	map->collectibles = 0;
 	read_map(map, argv[1]);
 	map->mlx = mlx_init();
-	map->window = mlx_new_window\
-				  (map->mlx, map->width * 64, map->height * 64, "Escaping Hell");
+	map->window = mlx_new_window(map->mlx, \
+			map->width * 64, map->height * 64, "Escaping Hell");
 	imgs(map);
 	print_components(map);
-	mlx_hook(map->window, 2, 1L<<0, &movement, map);
+	mlx_hook(map->window, 2, 1L << 0, &movement, map);
 	mlx_hook(map->window, 17, 0, &xbutton, map);
 	mlx_loop(map->mlx);
 	return (0);
