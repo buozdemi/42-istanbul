@@ -6,7 +6,7 @@
 /*   By: macar <macar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 17:15:28 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/06 15:03:31 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/06 17:10:59 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct	map_config
 	image	*img;
 }				config;
 
+void	extension(char *str);
 void	freemem(config *map);
 void	imgs(config *imgs);
 void	detect_components(config *map);
@@ -51,7 +52,7 @@ void	check_components(config *map);
 void	check_topbottom(config *map, int j);
 void	check_walls(config *map);
 void	check_map(config *map);
-void	read_map(config *map);
+void	read_map(config *map, char *berfile);
 void	print_components(config *map);
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);

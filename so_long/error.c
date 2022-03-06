@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:06:38 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/06 14:44:47 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/06 17:10:01 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,13 +136,13 @@ void	check_map(config *map)
 	check_walls(map);
 }
 
-void	read_map(config *map)
+void	read_map(config *map, char *berfile)
 {
 	char	*result;
 	char	*line;
 	int		fd;
-
-	fd = open("./maps/map.ber", O_RDONLY);
+	extension(berfile);
+	fd = open(berfile, O_RDONLY);
 	result = ft_strdup("");
 	while (1)
 	{

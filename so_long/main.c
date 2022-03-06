@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:06:29 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/06 15:04:45 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/06 17:08:54 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,15 @@ int	xbutton(config *map){
 	exit(0);
 }
 
-int main()
+int main(int argc, char **argv)
 {
 	config	*map;
-	
+
+	if (argc != 2)
+	{
+		ft_printf("Error\n");
+		exit(0);
+	}
 	map = malloc(sizeof(config));
 	map->components[0] = 'C';
 	map->components[1] = 'E';
@@ -91,7 +96,7 @@ int main()
 	map->components[3] = '\0';
 	map->movecount = 0;
 	map->collectibles = 0;
-	read_map(map);
+	read_map(map, argv[1]);
 	map->mlx = mlx_init();
 	map->window = mlx_new_window\
 				  (map->mlx, map->width * 64, map->height * 64, "Escaping Hell");
