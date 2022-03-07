@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extension.c                                        :+:      :+:    :+:   */
+/*   destroy_img.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/06 17:00:12 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/07 13:38:12 by nkahrima         ###   ########.tr       */
+/*   Created: 2022/03/07 13:20:54 by nkahrima          #+#    #+#             */
+/*   Updated: 2022/03/07 13:46:34 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	extension(t_map *map, char *str)
+void	destroyimg(t_map *map)
 {
-	int	len;
-
-	if (!str)
-	{
-		free(map);
-		exit(0);
-	}
-	len = ft_strlen(str);
-	if (str[len - 1] != 'r' && str[len - 2] != 'e' && \
-			str[len - 3] != 'b' && str[len - 4] != '.')
-	{
-		free(map);
-		exit(0);
-	}
+	mlx_destroy_image(map->mlx, map->img->collectible);
+	mlx_destroy_image(map->mlx, map->img->player);
+	mlx_destroy_image(map->mlx, map->img->exit);
+	mlx_destroy_image(map->mlx, map->img->wall);
+	free(map->img);
+	exit_game(map);
 }

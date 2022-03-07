@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:48:23 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/06 19:52:37 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/07 13:23:04 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	print_components(t_map *map, int x, int y)
 			else if (map->lines[y][x] == '0')
 				;
 			else
-				exit_game(map, 1);
+				destroyimg(map);
 			x++;
 		}
 		y++;

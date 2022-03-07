@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 19:04:44 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/06 19:52:52 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/07 13:25:05 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	components(t_map *map)
 {
 	if ((map->exits == 0) || (map->players == 0) || (map->collectibles == 0))
-		exit_game(map, 1);
+		exit_game(map);
 }
 
 void	detect_components(t_map *map)

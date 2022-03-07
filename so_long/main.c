@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:06:29 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/06 19:52:19 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/07 13:47:51 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	imgs(t_map *imgs)
 	int	w;
 	int	h;
 
+	w = 64;
+	h = 64;
 	imgs->img = malloc(sizeof(t_image));
 	imgs->img->wall = mlx_xpm_file_to_image(imgs->mlx, WALL, &w, &h);
 	imgs->img->player = mlx_xpm_file_to_image(imgs->mlx, PLAYER, &w, &h);
@@ -37,7 +39,7 @@ void	move(t_map *map, int movey, int movex)
 			if (map->collectibles == 0)
 			{			
 				mlx_destroy_window(map->mlx, map->window);
-				exit_game(map, 1);
+				destroyimg(map);
 			}
 			else
 				return ;
@@ -64,14 +66,14 @@ int	movement(int keycode, t_map *map)
 	else if (keycode == 53)
 	{
 		mlx_destroy_window(map->mlx, map->window);
-		exit_game(map, 1);
+		destroyimg(map);
 	}
 	return (0);
 }
 
 int	xbutton(t_map *map)
 {
-	exit_game(map, 1);
+	destroyimg(map);
 	return (0);
 }
 
@@ -82,6 +84,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 	{
 		ft_printf("Error\n");
+		system("leaks so_long");
 		exit(0);
 	}
 	map = malloc(sizeof(t_map));
