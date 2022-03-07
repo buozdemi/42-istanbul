@@ -6,13 +6,13 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 12:44:03 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/05 15:36:16 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/07 18:59:21 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-char	*first_line(int fd, char *buffer)
+char	*first_line(int fd, char *buffer, t_map *map)
 {
 	char	*line;
 	int		byteread;
@@ -28,7 +28,7 @@ char	*first_line(int fd, char *buffer)
 		{
 			free(buffer);
 			free(line);
-			return (NULL);
+			free(map);
 		}
 		line[byteread] = '\0';
 		buffer = ft_strjoin(buffer, line);
@@ -37,14 +37,14 @@ char	*first_line(int fd, char *buffer)
 	return (buffer);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, t_map *map)
 {
 	char		*line;
 	static char	*buffer;
 
 	if ((fd < 0) || (BUFFER_SIZE <= 0))
 		return (0);
-	buffer = first_line(fd, buffer);
+	buffer = first_line(fd, buffer, map);
 	if (!buffer)
 		return (0);
 	line = next_line(buffer);

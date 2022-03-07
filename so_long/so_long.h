@@ -6,7 +6,7 @@
 /*   By: macar <macar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 17:15:28 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/07 14:24:18 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/07 18:51:52 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ typedef struct s_map
 	t_image	*img;
 }				t_map;
 
+void	exit_game(t_map *map, int isimg);
 void	extension(t_map *map, char *str);
 void	destroy_game(t_map *map);
-void	exit_game(t_map *map, int isimg);
 void	imgs(t_map *imgs);
+void	free_map(t_map *map);
 void	detect_components(t_map *map);
 void	check_components(t_map *map);
 void	check_topbottom(t_map *map, int j);
@@ -58,7 +59,7 @@ void	print_components(t_map *map, int x, int y);
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, t_map *map);
 char	*update_buffer(char *buffer);
 char	*next_line(char *buffer);
 char	*ft_strjoin(char *s1, char *s2);

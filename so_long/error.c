@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:06:38 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/07 14:28:30 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/07 19:06:01 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,18 @@ void	read_map(t_map *map, char *berfile)
 
 	extension(map, berfile);
 	fd = open(berfile, O_RDONLY);
+	if (fd < 0)
+		free_map(map);
+	line = get_next_line(fd, map);
+	if (!line)
+		free_map(map);
 	result = ft_strdup("");
 	while (1)
 	{
-		line = get_next_line(fd);
+		result = ft_strjoin(result, line);
+		line = get_next_line(fd, map);
 		if (!line)
 			break ;
-		result = ft_strjoin(result, line);
 		free(line);
 	}
 	map->lines = ft_split(result, '\n');
