@@ -6,7 +6,7 @@
 /*   By: macar <macar@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 17:15:28 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/07 13:38:24 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/07 14:24:18 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ typedef struct s_map
 }				t_map;
 
 void	extension(t_map *map, char *str);
-void	destroyimg(t_map *map);
-void	exit_game(t_map *map);
+void	destroy_game(t_map *map);
+void	exit_game(t_map *map, int isimg);
 void	imgs(t_map *imgs);
 void	detect_components(t_map *map);
 void	check_components(t_map *map);

@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:06:29 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/07 13:47:51 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/07 14:19:06 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	move(t_map *map, int movey, int movex)
 			if (map->collectibles == 0)
 			{			
 				mlx_destroy_window(map->mlx, map->window);
-				destroyimg(map);
+				destroy_game(map);
 			}
 			else
 				return ;
@@ -66,14 +66,14 @@ int	movement(int keycode, t_map *map)
 	else if (keycode == 53)
 	{
 		mlx_destroy_window(map->mlx, map->window);
-		destroyimg(map);
+		destroy_game(map);
 	}
 	return (0);
 }
 
 int	xbutton(t_map *map)
 {
-	destroyimg(map);
+	destroy_game(map);
 	return (0);
 }
 
@@ -84,7 +84,6 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 	{
 		ft_printf("Error\n");
-		system("leaks so_long");
 		exit(0);
 	}
 	map = malloc(sizeof(t_map));

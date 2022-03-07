@@ -6,23 +6,24 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:06:38 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/07 13:37:39 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/07 14:28:30 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./mlx/mlx.h"
 #include "so_long.h"
 
-void	exit_game(t_map *map)
+void	exit_game(t_map *map, int isimg)
 {
 	int	i;
 
 	i = 0;
+	if (isimg == 0)
+		ft_printf("Error\n");
 	while (map->lines[i])
 		free(map->lines[i++]);
 	free(map->lines);
 	free(map);
-	system("leaks so_long");
 	exit(0);
 }
 
@@ -34,7 +35,7 @@ void	check_topbottom(t_map *map, int j)
 	while (i < map->width)
 	{
 		if (map->lines[j][i] != '1')
-			exit_game(map);
+			exit_game(map, 0);
 		i++;
 	}
 }
@@ -50,7 +51,7 @@ void	check_walls(t_map *map)
 	while (i < map->height - 1)
 	{
 		if (map->lines[i][0] != '1' || map->lines[i][map->width - 1] != '1')
-			exit_game(map);
+			exit_game(map, 0);
 		i++;
 	}
 	detect_components(map);
@@ -72,7 +73,7 @@ void	check_map(t_map *map)
 		i++;
 	line_length = i;
 	if (line_length == line_count)
-		exit_game(map);
+		exit_game(map, 0);
 	map->width = line_length;
 	map->height = line_count;
 	check_walls(map);
