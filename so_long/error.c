@@ -19,7 +19,7 @@ void	exit_game(t_map *map, int isimg)
 
 	i = 0;
 	if (isimg == 0)
-		ft_printf("Error\n");
+		ft_printf("Error2\n");
 	while (map->lines[i])
 		free(map->lines[i++]);
 	free(map->lines);
