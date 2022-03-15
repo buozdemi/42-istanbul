@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:06:38 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/07 19:06:01 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/14 11:49:29 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exit_game(t_map *map, int isimg)
 
 	i = 0;
 	if (isimg == 0)
-		ft_printf("Error2\n");
+		ft_printf("Error\n");
 	while (map->lines[i])
 		free(map->lines[i++]);
 	free(map->lines);
@@ -96,10 +96,10 @@ void	read_map(t_map *map, char *berfile)
 	while (1)
 	{
 		result = ft_strjoin(result, line);
+		free(line);
 		line = get_next_line(fd, map);
 		if (!line)
 			break ;
-		free(line);
 	}
 	map->lines = ft_split(result, '\n');
 	free(result);

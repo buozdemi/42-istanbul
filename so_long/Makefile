@@ -1,11 +1,7 @@
 NAME		= so_long
-
 CC			= gcc
-
 CFLAGS		= -Wall -Wextra -Werror
-
 SRCS		= $(wildcard srcs/*.c) $(wildcard ./*.c)
-
 OBJS		= $(SRCS:%.c=%.o)
 
 all: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:06:29 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/07 18:48:46 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/14 11:52:07 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int	main(int argc, char **argv)
 		exit(0);
 	}
 	map = malloc(sizeof(t_map));
+	if (!map)
+		exit(0);
 	map->movecount = 0;
 	map->collectibles = 0;
 	map->exits = 0;
