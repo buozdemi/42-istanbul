@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 10:53:07 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/18 05:37:15 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/22 19:01:41 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ int	ft_atoi(char *str, int index)
 	{
 		if (ft_isdigit(str[index + 1]))
 			ft_atoi(str, index + 1);
+		else
+			return (0);
 	}
 	while (ft_isdigit(str[index]))
 	{
-		num = (num * 10) + (str[index] - 48);
+		num = ((num) * 10) + (str[index] - 48);
 		index++;
 	}
 	return (num);

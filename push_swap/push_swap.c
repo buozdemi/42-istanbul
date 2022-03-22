@@ -6,47 +6,44 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 04:32:49 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/18 05:29:22 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/22 19:05:46 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	number_count(char *str)
+int	check_double(t_intarr *stacks, int num, int count)
 {
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (argv[1][i])
-	{
-		if (argv[1][i] >= 48 && argv[1][i] <= 57)
-			count++;
-		i++;
-	}
-	return (count);
+	while(--count)
+		if (stacks->stack_a[count] == num)
+			return (1);
+	return (0);
 }
 
 int main(int argc, char **argv){
-	int	i;
-	int num = 0;
+	int			i;
+	int			j;
+	t_intarr	*stacks;
 
+	stacks = malloc(sizeof(t_intarr));
+	stacks->stack_a = malloc(argc);
+	stacks->len_a = argc;
 	i = 0;
+	j = 1;
 	if (argc == 1)
 		return (0);
-	while (argv[1][i])
+	while (j < argc)
 	{
-		if (ft_isspace(argv[1][i]))
-			i++;
-		else if (ft_isdigit(argv[1][i]) || argv[1][i] == '+' || argv[1][i] == '-')
+		if ((ft_isdigit(argv[j][i])) || (argv[j][i] == '+') || (argv[j][i] == '-'))
 		{
-			num = ft_atoi(str, i);
+			if (!(check_double(stacks, ft_atoi(argv[j], 0), argc)))
+				stacks->stack_a[j - 1] = ft_atoi(argv[j], i);
+			else
+				return (0);
 		}
-		else
-			ft_printf("Error\nINVALID ARGUMENT!");
-		i++;
+		j++;
 	}
-	ft_printf("number: %d\n", num);
+	for (int x = 0; x < argc - 1; x++)
+		ft_printf("[%d]\n", stacks->stack_a[x]);
 	return (0);
 }

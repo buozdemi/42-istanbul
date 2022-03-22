@@ -6,11 +6,11 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 14:43:46 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/22 12:09:07 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/03/22 12:11:15 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 static int	wordcount(const char *s, char c)
 {
