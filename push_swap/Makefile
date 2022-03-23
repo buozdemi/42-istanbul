@@ -3,7 +3,8 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 FT_PRINTF = ./ft_printf/libftprintf.a
 SRCS = ft_isdigit.c \
-	   ft_atoi.c
+	   ft_atoi.c \
+	   util_swap.c
 OBJS = $(SRCS:.c=.o)
 PS_OBJ = push_swap.o
 

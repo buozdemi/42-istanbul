@@ -1,44 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   util_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 10:53:07 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/23 12:48:15 by nkahrima         ###   ########.tr       */
+/*   Created: 2022/03/23 15:21:37 by nkahrima          #+#    #+#             */
+/*   Updated: 2022/03/23 17:52:02 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_isspace(int c)
+void	sa(t_stack *stacks)
 {
-	if (c == 32 || (c >= 9 && c <= 13))
-		return (1);
-	return (0);
+	int	temp;
+
+	if (stacks->len_a > 1)
+	{
+		temp = stacks->stack_a[0];
+		stacks->stack_a[0] = stacks->stack_a[1];
+		stacks->stack_a[1] = temp;
+	}
 }
 
-int	ft_atoi(char *str, int index)
+void	sb(t_stack *stacks)
 {
-	int	num;
-	int	sign;
+	int	temp;
 
-	num = 0;
-	sign = 1;
-	if (str[index] == '-' || str[index] == '+')
+	if (stacks->len_b > 1)
 	{
-		if (str[index] == '-')
-			sign *= -1;
-		if (ft_isdigit(str[index + 1]))
-			index++;
-		else
-			return (0);
+		temp = stacks->stack_b[0];
+		stacks->stack_b[0] = stacks->stack_b[1];
+		stacks->stack_b[1] = temp;
 	}
-	while (ft_isdigit(str[index]))
-	{
-		num = ((num) * 10) + (str[index] - 48);
-		index++;
-	}
-	return (num * sign);
+}
+
+void	ss(t_stack *stacks)
+{
+	sa(stacks);
+	sb(stacks);
 }
