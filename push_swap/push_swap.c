@@ -6,46 +6,30 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 04:32:49 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/03/23 17:54:07 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/04/02 13:11:52 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_double(t_stack *stacks, int num, int count)
-{
-	while(count--)
-		if (stacks->stack_a[count] == num)
-			return (1);
-	return (0);
-}
-/*
-void	pb(t_stack *stacks)
-{
-	int	temp;
-
-	temp = stacks->stack_a[0];
-}
-*/
-void	create_stack_a(t_stack *stacks, char **strnum)
+int	check_double(t_stack *stacks)
 {
 	int	i;
 	int	j;
 
-	i = 0;
-	j = 1;
-	stacks->stack_a = malloc(stacks->len_a);
-	while (j < stacks->len_a)
+	i = 1;
+	while (i < stacks->len_a)
 	{
-		if (ft_isdigit(strnum[j][i]) || strnum[j][i] == '+' || strnum[j][i] == '-')
+		j = 0;
+		while (j < i)
 		{
-			if (!(check_double(stacks, ft_atoi(strnum[j], 0), stacks->len_a - 1)))
-				stacks->stack_a[stacks->len_a - j - 1] = ft_atoi(strnum[j], i);
-			else
-				return ;
+			if (stacks->stack_a[j] == stacks->stack_a[i])
+				return (1);
+			j++;
 		}
-		j++;
+		i++;
 	}
+	return (0);
 }
 
 void	print_stack(t_stack *stacks, int *stack)
@@ -53,9 +37,9 @@ void	print_stack(t_stack *stacks, int *stack)
 	int	i;
 
 	i = 0;
-	while (i < stacks->len_a - 1)
+	while (i < stacks->len_b)
 	{
-		ft_printf("[%d]", stack[i]);
+		ft_printf("[%d]\n", stack[i]);
 		i++;
 	}
 	ft_printf("\n");
@@ -67,8 +51,13 @@ int main(int argc, char **argv){
 	if (argc == 1)
 		return (0);
 	stacks = malloc(sizeof(t_stack));
-	stacks->len_a = argc;
+	stacks->len_a = argc - 1;
+	stacks->len_b = argc - 1;
+	stacks->index_a = 0;
+	stacks->index_b = 0;
 	create_stack_a(stacks, argv);
-	print_stack(stacks, stacks->stack_a);
+	create_stack_b(stacks);
+	pb(stacks);
+	pb(stacks);
 	return (0);
 }

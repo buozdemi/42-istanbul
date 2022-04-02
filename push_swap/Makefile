@@ -4,7 +4,10 @@ CFLAGS = -Wall -Wextra -Werror
 FT_PRINTF = ./ft_printf/libftprintf.a
 SRCS = ft_isdigit.c \
 	   ft_atoi.c \
-	   util_swap.c
+	   util_swap.c \
+	   util_create.c \
+	   util_push.c
+
 OBJS = $(SRCS:.c=.o)
 PS_OBJ = push_swap.o
 
