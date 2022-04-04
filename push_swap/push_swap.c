@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 04:32:49 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/04/02 13:11:52 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/04/04 11:48:07 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	print_stack(t_stack *stacks, int *stack)
 	ft_printf("\n");
 }
 
-int main(int argc, char **argv){
+int	main(int argc, char **argv)
+{
 	t_stack		*stacks;
 
 	if (argc == 1)
@@ -53,11 +54,7 @@ int main(int argc, char **argv){
 	stacks = malloc(sizeof(t_stack));
 	stacks->len_a = argc - 1;
 	stacks->len_b = argc - 1;
-	stacks->index_a = 0;
-	stacks->index_b = 0;
 	create_stack_a(stacks, argv);
 	create_stack_b(stacks);
-	pb(stacks);
-	pb(stacks);
 	return (0);
 }

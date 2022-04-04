@@ -6,7 +6,7 @@
 /*   By: nkahrima <nkahrima@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 17:14:22 by nkahrima          #+#    #+#             */
-/*   Updated: 2022/04/02 12:21:19 by nkahrima         ###   ########.tr       */
+/*   Updated: 2022/04/04 11:49:08 by nkahrima         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ void	create_stack_a(t_stack *stacks, char **strnum)
 		return ;
 	while (j < stacks->len_a + 1)
 	{
-		if (ft_isdigit(strnum[j][i]) || strnum[j][i] == '+' || strnum[j][i] == '-')
+		if (ft_isdigit(strnum[j][i]) || strnum[j][i] == '+' \
+				|| strnum[j][i] == '-')
 			stacks->stack_a[j - 1] = ft_atoi(strnum[j], i);
 		else
 		{
-			printf("Error\n");
+			ft_printf("Error\n");
 			exit(0);
 		}
 		j++;

@@ -6,7 +6,10 @@ SRCS = ft_isdigit.c \
 	   ft_atoi.c \
 	   util_swap.c \
 	   util_create.c \
-	   util_push.c
+	   util_push.c \
+	   util_shift.c \
+	   util_rotate.c \
+	   util_revrotate.c \
 
 OBJS = $(SRCS:.c=.o)
 PS_OBJ = push_swap.o
